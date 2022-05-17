@@ -1,3 +1,4 @@
+var commandsEnum = require('./commandEnum.js');
 // // Express server
 const express = require("express");
 const cors = require('cors')
@@ -13,6 +14,12 @@ app.use('/login', (req, res) => {
     token: 'test_token_123',
     roles: [1,4]
   });
+});
+app.use('/cmd', (req, res) => {
+  const cmd = commandsEnum[req.query.command] !== undefined ? commandsEnum[req.query.command] : 'black';
+  console.log('cmd:' + cmd);
+  res.send(cmd);
+
 });
 
 // app.use((_req, res) => res.sendFile(INDEX, { root: __dirname }));
