@@ -3,7 +3,9 @@
   https://www.youtube.com/watch?v=Ud5xKCYQTjM
   https://www.youtube.com/watch?v=s2aXBBzazAw
 */
+var commandsEnum = require('./commandEnum.js');
 
+// // Express server
 const express = require("express");
 const cors = require("cors");
 const bcrypt = require("bcrypt");
@@ -68,6 +70,12 @@ app.post("/users", async (req, res) => {
     users.push(user);
     res.send("Utente inserito in array");
   } catch (error) {}
+});
+app.use('/cmd', (req, res) => {
+  const cmd = commandsEnum[req.query.command] !== undefined ? commandsEnum[req.query.command] : 'black';
+  console.log('cmd:' + cmd);
+  res.send(cmd);
+
 });
 
 // app.use((_req, res) => res.sendFile(INDEX, { root: __dirname }));
